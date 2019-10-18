@@ -79,3 +79,8 @@ spring:
     database-schema-update: true
     history-level: full
     db-history-used: true
+  thymeleaf:
+    mode: HTML
+    encoding: utf-8
+    # \u7981\u7528\u7F13\u5B58
+    cache: false
