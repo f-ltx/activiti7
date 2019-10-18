@@ -59,4 +59,14 @@ public class Role implements Serializable {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleId='" + roleId + '\'' +
+                ", codeName='" + codeName + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", users=" + users +
+                '}';
+    }
 }

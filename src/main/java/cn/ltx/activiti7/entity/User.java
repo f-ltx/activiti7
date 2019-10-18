@@ -22,6 +22,12 @@ public class User implements Serializable {
     private String displayName;
     private Set<Role> roles;
 
+    public User(String userGuid, String allPathName, String displayName) {
+        this.userGuid = userGuid;
+        this.allPathName = allPathName;
+        this.displayName = displayName;
+    }
+
     /**
      * Description:
      * <p>
@@ -78,5 +84,15 @@ public class User implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userGuid='" + userGuid + '\'' +
+                ", allPathName='" + allPathName + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

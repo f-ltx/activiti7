@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>vf</title>
+</head>
+<body>
+list--
+<table>
+    <thead>
+    <th>id</th>
+    <th>name</th>
+    <th>reason</th>
+    <th>申请</th>
+    </thead>
+    <tbody>
+        <tr th:each="vf,stat:${vfList}" th:style="'background-color:'+@{${stat.odd}?'#F2F2F2'}">
+            <td width="20%" th:text="${vf.vfId}"></td>
+            <td width="20%" th:text="${vf.name}"></td>
+            <td width="20%" th:text="${vf.reason}"></td>
+            <td width="20%"><a th:href="@{/flow/apply(vfId=${vf.vfId})}">申请撤销</a></td>
+    </tbody>
+</table>
+</body>
+</html>
