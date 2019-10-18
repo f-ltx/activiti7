@@ -16,7 +16,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public Object index() {
-        logger.debug("hello");
+        logger.warn("hello");
         return "hello";
     }
 
