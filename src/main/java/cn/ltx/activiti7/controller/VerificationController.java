@@ -1,5 +1,6 @@
 package cn.ltx.activiti7.controller;
 
+import cn.ltx.activiti7.entity.User;
 import cn.ltx.activiti7.entity.Verification;
 import cn.ltx.activiti7.service.VerificationService;
 import org.slf4j.Logger;
@@ -29,9 +30,11 @@ public class VerificationController {
     private VerificationService vfService;
 
     @RequestMapping("/list")
-    public String list(ModelMap map) {
+    public String list(HttpServletRequest request, ModelMap modelMap) {
         List<Verification> vfList = vfService.findAll();
-        map.put("vfList",vfList);
+        modelMap.put("vfList", vfList);
+        User user = (User) request.getSession().getAttribute("user");
+        modelMap.put("user",user);
         return "/vf/list";
     }
 
@@ -40,13 +43,13 @@ public class VerificationController {
         Verification verification = new Verification();
         verification.setName("name");
         verification.setReason("reason");
-        map.put("verification",verification);
+        map.put("verification", verification);
         return "/vf/insert";
     }
 
     @RequestMapping("insert")
     public String insert(@ModelAttribute Verification verification) {
-        logger.warn(" ==  {}",verification);
+        logger.warn(" ==  {}", verification);
         vfService.save(verification);
         return "redirect:/vf/list";
     }

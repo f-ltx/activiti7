@@ -7,7 +7,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   #    database-platform: org.hibernate.dialect.OracleDialect
   ##\u6570\u636E\u5E93\u8FDE\u63A5\u4FE1\u606F
   datasource:
