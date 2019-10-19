@@ -17,7 +17,7 @@ public class FlowService {
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment();
         deploymentBuilder.addClasspathResource("processes/applyProcess.bpmn");
         deploymentBuilder.addClasspathResource("processes/applyProcess.png");
-        deploymentBuilder.name("请假流程");
+        deploymentBuilder.name("申请流程");
         Deployment deploy = deploymentBuilder.deploy();
         return deploy;
     }

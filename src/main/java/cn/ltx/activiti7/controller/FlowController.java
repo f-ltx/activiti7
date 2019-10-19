@@ -4,6 +4,7 @@ import cn.ltx.activiti7.entity.User;
 import cn.ltx.activiti7.entity.Verification;
 import cn.ltx.activiti7.service.FlowService;
 import cn.ltx.activiti7.service.VerificationService;
+import com.alibaba.fastjson.JSON;
 import org.activiti.engine.repository.Deployment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,11 +44,10 @@ public class FlowController {
 
     @RequestMapping("/deploy")
     @ResponseBody
-    public Map<String, Object> deploy() {
+    public String deploy() {
         Deployment deploy = flowService.deploy();
-        Map<String, Object> map = new HashMap<>();
-        map.put("deploy", deploy);
-        return map;
+        logger.warn("deploy = {}" , JSON.toJSONString(deploy));
+        return "/";
     }
 
 }
