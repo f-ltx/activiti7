@@ -15,6 +15,10 @@ public class Apply {
     private Verification verification;
     private Set<Approve> approves;
 
+    public static final String STATUS_APPROVING = "审批中";
+    public static final String STATUS_UNAPPROVED = "未通过";
+    public static final String STATUS_APPROVED = "已通过";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getApplyId() {

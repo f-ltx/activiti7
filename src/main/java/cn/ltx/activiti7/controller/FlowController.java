@@ -1,5 +1,6 @@
 package cn.ltx.activiti7.controller;
 
+import cn.ltx.activiti7.entity.Apply;
 import cn.ltx.activiti7.entity.User;
 import cn.ltx.activiti7.entity.Verification;
 import cn.ltx.activiti7.service.FlowService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,20 +36,28 @@ public class FlowController {
     private VerificationService vfService;
 
     @RequestMapping("/apply")
-    public String apply(ModelMap map, HttpServletRequest request) {
+    public String apply(HttpServletRequest request, ModelMap modelMap) {
         String vfId = request.getParameter("vfId");
         Verification vf = vfService.findByVfId(Long.parseLong(vfId));
-
-//        flowService.apply();
+        User user = (User) request.getSession().getAttribute("user");
+//        if(user == null){
+//            return "";
+//        }
+        Apply apply = new Apply();
+        apply.setApplyDate(new Date());
+        apply.setApplyName(vf.getName() + "-" + "申请" + user.getDisplayName());
+        apply.setApplyUser(user);
+        apply.setStatus(Apply.STATUS_APPROVING);
+        apply.setVerification(vf);
+        flowService.apply(apply);
         return "/flow/apply";
     }
 
     @RequestMapping("/deploy")
-    @ResponseBody
     public String deploy() {
         Deployment deploy = flowService.deploy();
-        logger.warn("deploy = {}" , JSON.toJSONString(deploy));
-        return "/";
+        logger.warn("deploy = {}", JSON.toJSONString(deploy));
+        return "index";
     }
 
 }

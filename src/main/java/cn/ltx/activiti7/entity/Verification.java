@@ -3,6 +3,12 @@ package cn.ltx.activiti7.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Description:核销信息
+ *
+ * @author Administrator
+ * @date 2019/10/19
+ */
 @Entity
 @Table(name="T_VERIFICATION")
 public class Verification implements Serializable {
