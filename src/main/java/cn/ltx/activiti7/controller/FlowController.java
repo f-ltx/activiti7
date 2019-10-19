@@ -40,9 +40,6 @@ public class FlowController {
         String vfId = request.getParameter("vfId");
         Verification vf = vfService.findByVfId(Long.parseLong(vfId));
         User user = (User) request.getSession().getAttribute("user");
-//        if(user == null){
-//            return "";
-//        }
         Apply apply = new Apply();
         apply.setApplyDate(new Date());
         apply.setApplyName(vf.getName() + "-" + "申请" + user.getDisplayName());
