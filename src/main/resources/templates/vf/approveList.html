@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>vf</title>
+</head>
+<body>
+approveList--
+<table>
+    <thead>
+    <th>applyId</th>
+    <th>applyDate</th>
+    <th>applyName</th>
+    <th>status</th>
+    <th>applyUser</th>
+    <th>vfid</th>
+    </thead>
+    <tbody>
+        <tr th:each="task,stat:${taskList}" th:style="'background-color:'+@{${stat.odd}?'#F2F2F2'}">
+            <td width="20%" th:text="${task.apply.applyId}"></td>
+            <td width="20%" th:text="${task.apply.applyDate}"></td>
+            <td width="20%" th:text="${task.apply.applyName}"></td>
+            <td width="20%" th:text="${task.apply.status}"></td>
+            <td width="20%" th:text="${task.apply.applyUser}"></td>
+            <td width="20%" th:text="${task.apply.verification}"></td>
+            <td width="20%"><a th:href="@{/flow/apply}">申请撤销</a></td>
+    </tbody>
+</table>
+</body>
+</html>

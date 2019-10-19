@@ -1,5 +1,6 @@
 package cn.ltx.activiti7.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -51,7 +52,8 @@ public class Role implements Serializable {
     /**
      * Description:mappedBy属性定义了User为双向关系的维护端
      */
-    @ManyToMany(mappedBy = "roles")
+    @JsonIgnoreProperties(value = {"users"})// 解决循环查找的问题
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     public Set<User> getUsers() {
         return users;
     }
@@ -66,7 +68,6 @@ public class Role implements Serializable {
                 "roleId='" + roleId + '\'' +
                 ", codeName='" + codeName + '\'' +
                 ", roleName='" + roleName + '\'' +
-                ", users=" + users +
                 '}';
     }
 }

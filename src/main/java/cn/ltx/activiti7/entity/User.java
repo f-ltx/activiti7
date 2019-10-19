@@ -1,5 +1,6 @@
 package cn.ltx.activiti7.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,6 +22,9 @@ public class User implements Serializable {
     private String allPathName;
     private String displayName;
     private Set<Role> roles;
+
+    public User() {
+    }
 
     public User(String userGuid, String allPathName, String displayName) {
         this.userGuid = userGuid;
@@ -74,6 +78,7 @@ public class User implements Serializable {
     /**
      * Description:多对多关系，维护关系的一端，name=中间表，定义外键关系
      */
+    @JsonIgnoreProperties(value = {"roles"})// 解决循环查找的问题
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "T_USER_ROLE",
             joinColumns = {@JoinColumn(name = "USER_GUID", referencedColumnName = "user_guid")},

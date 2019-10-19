@@ -1,9 +1,11 @@
 package cn.ltx.activiti7.controller;
 
 import cn.ltx.activiti7.entity.User;
+import cn.ltx.activiti7.service.UserService;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,8 @@ import java.util.Map;
 @Controller
 public class IndexController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
-
+    @Autowired
+    private UserService userService;
     @RequestMapping("/")
     public Object index() {
         return "index";
@@ -33,7 +36,6 @@ public class IndexController {
         String allPathName = request.getParameter("allPathName");
         String displayName = request.getParameter("displayName");
         User user = new User(userGuid,allPathName,displayName);
-
         request.getSession().setAttribute("user",user);
 
         return "redirect:/vf/list";
