@@ -2,7 +2,7 @@ package cn.ltx.activiti7.service;
 
 import cn.ltx.activiti7.dao.ApplyDao;
 import cn.ltx.activiti7.entity.Apply;
-import cn.ltx.activiti7.entity.TaskView;
+import cn.ltx.activiti7.entity.TaskApply;
 import cn.ltx.activiti7.entity.User;
 import com.alibaba.fastjson.JSON;
 import org.activiti.engine.RepositoryService;
@@ -11,7 +11,6 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.IdentityLinkType;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class FlowService {
         applyDao.save(apply);
         String processDefinitionKey = "applyProcess";
         Map<String, Object> variables = new HashMap<>();
-//        variables.put("apply", apply);
+        variables.put("apply", apply);
 //        variables.put("role", "admin");
         //根据流程变量，流程定义key启动流程实例
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, variables);
@@ -65,18 +64,18 @@ public class FlowService {
         taskService.complete(task.getId());
     }
 
-    public List<TaskView> findTaskList(User user) {
+    public List<TaskApply> findTaskList(User user) {
         TaskQuery taskQuery = taskService.createTaskQuery();
 //        taskQuery.processVariableValueEquals("role", "admin");
         taskQuery.taskAssignee("admin");
         taskQuery.orderByTaskCreateTime().desc();// 添加排序条件
         List<Task> taskList = taskQuery.list();
-        List<TaskView> list = new ArrayList<TaskView>();
+        List<TaskApply> list = new ArrayList<TaskApply>();
         for (Task task : taskList) {
             Object object = taskService.getVariable(task.getId(), "apply");
             Apply apply = JSON.parseObject(object.toString(), Apply.class);
             if (apply.getStatus().equals(Apply.STATUS_APPROVING)) {
-                list.add(new TaskView(task, apply));
+                list.add(new TaskApply(task, apply));
             }
         }
         return list;

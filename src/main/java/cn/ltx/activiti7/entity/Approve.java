@@ -1,10 +1,15 @@
 package cn.ltx.activiti7.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
+/**
+ * @author Administrator
+ */
 @Entity
 @Table(name = "T_APPROVE")
-public class Approve {
+public class Approve implements Serializable {
+    private static final long serialVersionUID = -5089885488547625499L;
     private Long approveId;
     private User approveUser;
     private Boolean approveFlag;

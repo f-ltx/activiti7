@@ -18,6 +18,7 @@ import java.util.Set;
         @Index(name = "IND_USER_DISPLAYNAME", columnList = "USER_DISPLAYNAME")}
 )
 public class User implements Serializable {
+    private static final long serialVersionUID = 6128701914371517901L;
     private String userGuid;
     private String allPathName;
     private String displayName;
@@ -77,12 +78,14 @@ public class User implements Serializable {
 
     /**
      * Description:多对多关系，维护关系的一端，name=中间表，定义外键关系
+     * Transient不生成字段
      */
-    @JsonIgnoreProperties(value = {"roles"})// 解决循环查找的问题
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JoinTable(name = "T_USER_ROLE",
-            joinColumns = {@JoinColumn(name = "USER_GUID", referencedColumnName = "user_guid")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "role_id")})
+//    @JsonIgnoreProperties(value = {"roles"})// 解决循环查找的问题
+//    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+//    @JoinTable(name = "T_USER_ROLE",
+//            joinColumns = {@JoinColumn(name = "USER_GUID", referencedColumnName = "user_guid")},
+//            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "role_id")})
+    @Transient
     public Set<Role> getRoles() {
         return roles;
     }
@@ -97,7 +100,7 @@ public class User implements Serializable {
                 "userGuid='" + userGuid + '\'' +
                 ", allPathName='" + allPathName + '\'' +
                 ", displayName='" + displayName + '\'' +
-                ", roles=" + roles +
+//                ", roles=" + roles +
                 '}';
     }
 }

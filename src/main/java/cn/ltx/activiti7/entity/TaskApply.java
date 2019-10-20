@@ -2,11 +2,14 @@ package cn.ltx.activiti7.entity;
 
 import org.activiti.engine.task.Task;
 
-public class TaskView {
+/**
+ * @author Administrator
+ */
+public class TaskApply {
     private Task task;
     private Apply apply;
 
-    public TaskView(Task task, Apply apply) {
+    public TaskApply(Task task, Apply apply) {
         this.task = task;
         this.apply = apply;
     }

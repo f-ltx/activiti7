@@ -1,7 +1,7 @@
 package cn.ltx.activiti7.controller;
 
 import cn.ltx.activiti7.entity.Apply;
-import cn.ltx.activiti7.entity.TaskView;
+import cn.ltx.activiti7.entity.TaskApply;
 import cn.ltx.activiti7.entity.User;
 import cn.ltx.activiti7.entity.Verification;
 import cn.ltx.activiti7.service.FlowService;
@@ -45,7 +45,7 @@ public class FlowController {
     @RequestMapping("/approveList")
     public String approveList(HttpServletRequest request, ModelMap modelMap){
         User user = (User) request.getSession().getAttribute("user");
-        List<TaskView> taskList = flowService.findTaskList(user);
+        List<TaskApply> taskList = flowService.findTaskList(user);
         modelMap.put("taskList",taskList);
         return "/vf/approveList";
     }

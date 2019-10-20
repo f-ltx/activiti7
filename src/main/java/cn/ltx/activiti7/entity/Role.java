@@ -7,12 +7,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
+/**
+ * @author Administrator
+ */
 @Entity
 @Table(name = "T_ROLE", indexes = {
         @Index(name = "PK_ROLE_ID", columnList = "ROLE_ID", unique = true),
         @Index(name = "IND_ROLE_NAME", columnList = "ROLE_NAME"),
         @Index(name = "IND_ROLE_CODENAME", columnList = "ROLE_CODENAME", unique = true)})
 public class Role implements Serializable {
+    private static final long serialVersionUID = 4729745556865743855L;
     private String roleId;
     private String codeName;
     private String roleName;
@@ -52,8 +56,9 @@ public class Role implements Serializable {
     /**
      * Description:mappedBy属性定义了User为双向关系的维护端
      */
-    @JsonIgnoreProperties(value = {"users"})// 解决循环查找的问题
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+//    @JsonIgnoreProperties(value = {"users"})// 解决循环查找的问题
+//    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @Transient
     public Set<User> getUsers() {
         return users;
     }

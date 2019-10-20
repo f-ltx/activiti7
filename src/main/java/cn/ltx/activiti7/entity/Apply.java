@@ -1,12 +1,17 @@
 package cn.ltx.activiti7.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * @author Administrator
+ */
 @Entity
 @Table(name = "T_APPLY")
-public class Apply {
+public class Apply implements Serializable {
+    private static final long serialVersionUID = 4655214207763277833L;
     private Long applyId;
     private String applyName;
     private User applyUser;

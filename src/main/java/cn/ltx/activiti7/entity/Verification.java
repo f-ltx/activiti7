@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name="T_VERIFICATION")
 public class Verification implements Serializable {
+    private static final long serialVersionUID = 8369253450979797735L;
     private Long vfId;
     private String name;
     private String reason;
