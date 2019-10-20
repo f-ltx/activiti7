@@ -11,6 +11,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.IdentityLinkType;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,20 +51,24 @@ public class FlowService {
         applyDao.save(apply);
         String processDefinitionKey = "applyProcess";
         Map<String, Object> variables = new HashMap<>();
-        variables.put("apply", apply);
-        variables.put("role", "admin");
+//        variables.put("apply", apply);
+//        variables.put("role", "admin");
         //根据流程变量，流程定义key启动流程实例
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, variables);
+        String processInstanceId = processInstance.getId();
         //提交任务
         TaskQuery taskQuery = taskService.createTaskQuery();
+        taskQuery.taskAssignee("app");
         taskQuery.processInstanceId(processInstance.getId());
         Task task = taskQuery.singleResult();
+        taskService.setAssignee(task.getId(),apply.getApplyUser().getUserGuid());
         taskService.complete(task.getId());
     }
 
     public List<TaskView> findTaskList(User user) {
         TaskQuery taskQuery = taskService.createTaskQuery();
-        taskQuery.processVariableValueEquals("role", "admin");
+//        taskQuery.processVariableValueEquals("role", "admin");
+        taskQuery.taskAssignee("admin");
         taskQuery.orderByTaskCreateTime().desc();// 添加排序条件
         List<Task> taskList = taskQuery.list();
         List<TaskView> list = new ArrayList<TaskView>();
