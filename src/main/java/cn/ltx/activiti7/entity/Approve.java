@@ -26,8 +26,9 @@ public class Approve implements Serializable {
         this.approveId = approveId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "approveUserGuid")
+    //    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "approveUserGuid")
+    @Transient
     public User getApproveUser() {
         return approveUser;
     }
@@ -52,8 +53,9 @@ public class Approve implements Serializable {
         this.approveComment = approveComment;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "applyId")
+    //    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "applyId")
+    @Transient
     public Apply getApply() {
         return apply;
     }

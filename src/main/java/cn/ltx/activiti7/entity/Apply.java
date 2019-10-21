@@ -42,8 +42,10 @@ public class Apply implements Serializable {
         this.applyName = applyName;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "applyUserGuid")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "applyUserGuid")
+//    @Transient
+    @Column(name = "APPLY_USER_GUID")
     public User getApplyUser() {
         return applyUser;
     }
@@ -71,8 +73,9 @@ public class Apply implements Serializable {
     /**
      * Description:JoinColumn会在apply中生成字段，按照指定name生成
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vfId")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "vfId")
+    @Transient
     public Verification getVerification() {
         return verification;
     }
@@ -85,7 +88,8 @@ public class Apply implements Serializable {
      * Description:
      * mappedBy 不会在apply表中生成字段
      */
-    @OneToMany(mappedBy = "apply", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "apply", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Transient
     public Set<Approve> getApproves() {
         return approves;
     }
